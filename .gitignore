@@ -1,1 +1,3 @@
 .vagrant
+inventory/production/*
+provision_*
