@@ -8,7 +8,7 @@
     - zlib1g-dev
 
 - name: downloads ruby source code
-  get_url: url=http://cache.ruby-lang.org/pub/ruby/2.1/ruby-{{ruby_version}}.tar.gz dest=/var/local/ruby-{{ruby_version}}.tar.gz
+  get_url: url=http://cache.ruby-lang.org/pub/ruby/2.2/ruby-{{ruby_version}}.tar.gz dest=/var/local/ruby-{{ruby_version}}.tar.gz
 
 - name: extracts ruby source code
   command: tar -xvzf /var/local/ruby-{{ruby_version}}.tar.gz chdir=/var/local creates=/var/local/ruby-{{ruby_version}}
