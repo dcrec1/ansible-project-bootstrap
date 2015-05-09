@@ -13,6 +13,3 @@
 
 - name: installs node
   command: make install chdir=/var/local/node-v0.10.32 creates=/usr/local/bin/node
-
-- name: updates npm
-  command: npm update -g npm
