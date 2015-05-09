@@ -1,0 +1,10 @@
+---
+- name: installs psql
+  apt: pkg=postgresql
+
+- name: install psycopg2
+  apt: pkg=python-psycopg2
+
+- name: grants access for database to user
+  sudo_user: postgres
+  postgresql_user: name={{ user }} role_attr_flags=SUPERUSER,LOGIN,CREATEDB password=password state=present

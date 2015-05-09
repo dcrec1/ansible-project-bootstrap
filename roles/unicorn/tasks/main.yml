@@ -1,0 +1,15 @@
+- name: installs unicorn
+  command: gem install unicorn creates=/usr/local/bin/unicorn
+
+- name: adds unicorn init script
+  template: src=unicorn.j2 dest=/etc/init.d/unicorn mode=755
+
+- name: adds unicorn app conf
+  template: src=unicorn.rb.j2 dest={{ app_path }}/config/unicorn.rb mode=644
+  notify: restart unicorn
+
+- name: creates unicorn pid folder
+  file: path={{app_path}}/tmp/pids owner={{user}} group={{user}} state=directory
+
+- name: adds unicorn to upstart
+  command: update-rc.d -f unicorn defaults

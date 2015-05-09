@@ -1,0 +1,18 @@
+---
+- name: downloads node source code
+  get_url: url=http://nodejs.org/dist/v0.10.32/node-v0.10.32.tar.gz dest=/var/local/node-v0.10.32.tar.gz
+
+- name: extracts node source code
+  command: tar -xvzf /var/local/node-v0.10.32.tar.gz chdir=/var/local creates=/var/local/node-v0.10.32
+
+- name: configures node
+  command: ./configure chdir=/var/local/node-v0.10.32 creates=/var/local/node-v0.10.32/Makefile
+
+- name: compiles node
+  command: make chdir=/var/local/node-v0.10.32 creates=/var/local/node-v0.10.32/node
+
+- name: installs node
+  command: make install chdir=/var/local/node-v0.10.32 creates=/usr/local/bin/node
+
+- name: updates npm
+  command: npm update -g npm

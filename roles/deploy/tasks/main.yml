@@ -1,0 +1,10 @@
+- name: creates deploy user
+  user: name={{user}} shell=/bin/bash
+
+- name: sets home owner
+  file: owner={{user}} path=/home/{{user}} recurse=yes state=directory
+
+- name: creates apps directory
+  file: path=/var/local/apps/ owner={{user}} group={{user}} state=directory
+
+- authorized_key: user={{user}} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

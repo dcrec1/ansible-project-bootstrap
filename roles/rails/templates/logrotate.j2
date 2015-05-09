@@ -1,0 +1,9 @@
+{{ app_path }}/{{ rails_env }}.log {
+  daily
+  missingok
+  rotate 7
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+}

@@ -1,0 +1,34 @@
+log_format main '$http_x_forwarded_for - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$host" "$http_user_agent"';
+
+gzip_vary on;
+gzip_proxied any;
+gzip_types text/plain text/html application/xml text/css text/comma-separated-values text/javascript application/x-javascript application/atom+xml application/json;
+
+upstream app_server {
+  server unix:/tmp/{{ app_name }}.sock fail_timeout=0;
+}
+
+server {
+  listen 80;
+  keepalive_timeout 5;
+  root {{ app_path }}/public;
+  try_files $uri $uri.html $uri/index.html @app;
+  {% if max_upload_size is defined %}
+  client_max_body_size {{ max_upload_size }};
+  {% endif %}
+ 
+  location /assets {
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
+    add_header ETag "";
+    add_header Last-Modified "";
+    try_files $uri @app;
+  }
+  
+  location @app {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_pass http://app_server;
+  }
+}

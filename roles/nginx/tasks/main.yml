@@ -1,0 +1,13 @@
+---
+- name: installs nginx
+  apt: pkg=nginx
+
+- name: removes the default app
+  command: rm -f /etc/nginx/sites-enabled/default
+
+- name: adds nginx conf
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/{{app_name}} force=true
+
+- name: enable nginx stats
+  template: src=nginx-stats.conf.j2 dest=/etc/nginx/sites-enabled/nginx-stats.conf 
+  notify: restart nginx

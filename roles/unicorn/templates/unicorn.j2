@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+#
+# Startup script for jetty under *nix systems (it works under NT/cygwin too).
+
+# To get the service to restart correctly on reboot, uncomment below (3 lines):
+# ========================
+# chkconfig: 3 99 99
+# description: Daemon for Unicorn service
+# processname: Unicorn
+# ========================
+
+# Configuration files
+
+#
+# init.d script for single unicorn installation.
+#
+# This configures a unicorn master for your app at RAILS_ROOT running in
+# production mode. It will read config/unicorn.rb for further set up.
+#
+# You should ensure different ports or sockets are set in each config/unicorn.rb if
+# you are running more than one master concurrently.
+#
+
+UNICORN_ROOT='{{ app_path }}'
+UNICORN_ENV='{{ rails_env }}'
+UNICORN_USER='{{ user }}'
+
+set -e
+
+sig () {
+  test -s "$PID" && kill -$1 `cat "$PID"`
+}
+
+oldsig () {
+  test -s "$OLD_PID" && kill -$1 `cat "$OLD_PID"`
+}
+
+cmd () {
+
+  case $1 in
+    start)
+      sig 0 && echo >&2 "Already running" && exit 0
+      echo "Starting"
+      su - $UNICORN_USER -c "$CMD"
+      ;;
+    stop)
+      sig QUIT && echo "Stopping" && exit 0
+      echo >&2 "Not running"
+      ;;
+    force-stop)
+      sig TERM && echo "Forcing a stop" && exit 0
+      echo >&2 "Not running"
+      ;;
+    restart|reload)
+      sig USR2 && sleep 5 && oldsig QUIT && echo "Killing old master" `cat $OLD_PID` && exit 0
+      echo >&2 "Couldn't reload, starting '$CMD' instead"
+      su - $UNICORN_USER -c "$CMD"
+      ;;
+    upgrade)
+      sig USR2 && echo Upgraded && exit 0
+      echo >&2 "Couldn't upgrade, starting '$CMD' instead"
+      su - $UNICORN_USER -c "$CMD"
+      ;;
+    rotate)
+            sig USR1 && echo rotated logs OK && exit 0
+            echo >&2 "Couldn't rotate logs" && exit 1
+            ;;
+    *)
+      echo >&2 "Usage: $0 <start|stop|restart|upgrade|rotate|force-stop>"
+      exit 1
+      ;;
+    esac
+}
+
+setup () {
+
+  echo -n "$UNICORN_ROOT: "
+  export PID=$UNICORN_ROOT/tmp/pids/unicorn.pid
+  export OLD_PID="$PID.oldbin"
+
+  CMD="cd $UNICORN_ROOT && bundle exec unicorn -E $UNICORN_ENV -c config/unicorn.rb -D"
+}
+
+setup
+cmd $1

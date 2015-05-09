@@ -1,0 +1,2 @@
+- name: restart unicorn
+  service: name=puma state=restarted

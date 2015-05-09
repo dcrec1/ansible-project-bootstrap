@@ -1,0 +1,5 @@
+---
+dependencies:
+  - { role: ruby }
+  - { role: nodejs }
+  - { role: deploy }

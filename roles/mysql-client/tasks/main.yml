@@ -1,0 +1,3 @@
+---
+- name: installs mysql lib
+  apt: pkg=libmysqlclient-dev

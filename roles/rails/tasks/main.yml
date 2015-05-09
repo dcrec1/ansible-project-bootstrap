@@ -1,0 +1,10 @@
+---
+- name: installs gems
+  command: gem install {{item}} creates=/usr/local/bin/{{item}}
+  with_items:
+    - rake
+    - bundler
+    - rails
+
+- name: configures logrotate
+  template: src=logrotate.j2 dest=/etc/logrotate.d/app mode=644

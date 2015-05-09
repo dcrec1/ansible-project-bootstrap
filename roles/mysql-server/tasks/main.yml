@@ -1,0 +1,3 @@
+---
+- name: installs mysql
+  apt: pkg=mysql-server

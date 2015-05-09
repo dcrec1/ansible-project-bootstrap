@@ -1,0 +1,3 @@
+---
+- name: installs java runtime environment 7
+  apt: pkg=openjdk-7-jre

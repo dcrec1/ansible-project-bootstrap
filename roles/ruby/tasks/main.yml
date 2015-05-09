@@ -1,0 +1,23 @@
+---
+- name: installs ruby dependencies
+  apt: pkg={{item}}
+  with_items:
+    - libreadline-dev
+    - libssl-dev
+    - libyaml-dev
+    - zlib1g-dev
+
+- name: downloads ruby source code
+  get_url: url=http://cache.ruby-lang.org/pub/ruby/2.1/ruby-{{ruby_version}}.tar.gz dest=/var/local/ruby-{{ruby_version}}.tar.gz
+
+- name: extracts ruby source code
+  command: tar -xvzf /var/local/ruby-{{ruby_version}}.tar.gz chdir=/var/local creates=/var/local/ruby-{{ruby_version}}
+
+- name: configures ruby
+  command: ./configure chdir=/var/local/ruby-{{ruby_version}} creates=/var/local/ruby-{{ruby_version}}/Makefile
+
+- name: compiles ruby
+  command: make chdir=/var/local/ruby-{{ruby_version}} creates=/var/local/ruby-{{ruby_version}}/ruby
+
+- name: installs ruby
+  command: make install chdir=/var/local/ruby-{{ruby_version}} creates=/usr/local/bin/ruby
