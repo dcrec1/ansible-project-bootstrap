@@ -1,3 +1,4 @@
 .vagrant
 inventory/production/*
 provision_*
+deploy_*
