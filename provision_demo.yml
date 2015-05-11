@@ -1,0 +1,17 @@
+---
+- hosts: database
+  sudo: true
+  roles:
+    - postgresql-server
+
+- hosts: web
+  sudo: true
+  vars:
+    ruby_version: 2.2.2
+  roles:
+    - git
+    - postgresql-client
+    - phantomjs
+    - nginx
+    - rails
+    - puma

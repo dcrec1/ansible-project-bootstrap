@@ -1,0 +1,18 @@
+web1 ansible_ssh_host=<host or ip>
+web2 ansible_ssh_host=<host or ip>
+
+[web]
+web1
+web2
+
+[database]
+db1
+
+[web:vars]
+repository=<git repository url>
+ansible_ssh_private_key_file=~/.ssh/demo_private_key
+ansible_ssh_user=ubuntu
+app_name=demo
+app_path=/var/local/apps/demo
+rails_env=production
+user=deploy

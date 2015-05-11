@@ -1,0 +1,11 @@
+Use this repository as a bootstrap for your organization custom Ansible project.
+
+In case you're new to Ansible, I added some demo playbooks to understand how you should do things. You should configure your inventory and then run the playbooks like this:
+
+```
+ansible-playbook -i inventory/production/demo provision_demo.yml
+```
+
+The content of this project was created following the Ansible best practices:
+
+https://docs.ansible.com/playbooks_best_practices.html#content-organization
