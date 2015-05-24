@@ -9,3 +9,24 @@ ansible-playbook -i inventory/production/demo provision_demo.yml
 The content of this project was created following the Ansible best practices:
 
 https://docs.ansible.com/playbooks_best_practices.html#content-organization
+
+# Included roles
+
+* deploy (creates a deploy specific user and copies ssh keys)
+* dev (installs common packages like autoconf and build essentials)
+* git
+* imagemagick
+* jre
+* mysql-client
+* mysql-server
+* nginx
+* nodejs
+* phantomjs
+* postgresql-client
+* postgresql-server
+* puma
+* rails
+* redis
+* ruby
+* sidekiq
+* unicorn
