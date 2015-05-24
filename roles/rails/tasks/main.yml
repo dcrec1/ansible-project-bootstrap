@@ -14,3 +14,11 @@
 
 - name: changes app path owner
   file: path={{app_path}} recurse=yes owner={{user}}
+
+- name: bundle install
+  sudo_user: "{{ user }}"
+  command: bundle install chdir={{app_path}}
+
+- name: creates database
+  sudo_user: "{{ user }}"
+  command: bundle exec rake db:create RAILS_ENV={{rails_env}} chdir={{app_path}}
