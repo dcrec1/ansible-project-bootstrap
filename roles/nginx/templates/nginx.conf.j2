@@ -9,7 +9,7 @@ upstream app_server {
 }
 
 server {
-  listen 80;
+  listen 80 default_server;
   keepalive_timeout 5;
   root {{ app_path }}/public;
   try_files $uri $uri.html $uri/index.html @app;
