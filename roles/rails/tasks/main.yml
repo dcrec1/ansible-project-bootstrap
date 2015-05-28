@@ -19,6 +19,6 @@
   sudo_user: "{{ user }}"
   command: bundle install chdir={{app_path}}
 
-- name: creates database
+- name: setups database
   sudo_user: "{{ user }}"
-  command: bundle exec rake db:create RAILS_ENV={{rails_env}} chdir={{app_path}}
+  command: bundle exec rake db:setup RAILS_ENV={{rails_env}} chdir={{app_path}}
