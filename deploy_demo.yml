@@ -2,22 +2,5 @@
 - hosts: web
   vars: 
     ansible_ssh_user: "{{ user }}"
-  tasks:
-    - name: update project source
-      git: repo={{repository}} dest={{app_path}} accept_hostkey=yes
-
-    - name: install gems with bundler
-      command: bundle install --deployment chdir={{ app_path }}
-
-    - name: migrate the database
-      command: bundle exec rake db:migrate RAILS_ENV={{ rails_env }} chdir={{ app_path }}
-
-    - name: compile assets
-      command: bundle exec rake assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
-
-    - name: registers puma pid
-      command: cat tmp/pids/puma.pid chdir={{ app_path }}
-      register: puma_pid
-
-    - name: restart puma
-      command: kill -USR2 {{ puma_pid.stdout }}
+  roles:
+    - rails_deploy

@@ -26,6 +26,7 @@ https://docs.ansible.com/playbooks_best_practices.html#content-organization
 * postgresql-server
 * puma
 * rails
+* rails-deploy
 * redis
 * ruby
 * sidekiq
