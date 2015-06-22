@@ -1,6 +1,6 @@
 ---
 - hosts: web
-  vars: 
+  vars:
     ansible_ssh_user: "{{ user }}"
   roles:
-    - rails_deploy
+    - rails-deploy
