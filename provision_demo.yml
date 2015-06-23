@@ -12,6 +12,6 @@
     - git
     - postgresql-client
     - phantomjs
-    - nginx
     - rails
     - puma
+    - nginx
