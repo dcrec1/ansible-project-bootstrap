@@ -6,6 +6,8 @@ In case you're new to Ansible, I added some demo playbooks to understand how you
 ansible-playbook -i inventory/production/demo provision_demo.yml
 ```
 
+You can watch a demo [here](https://vimeo.com/133059608).
+
 The content of this project was created following the Ansible best practices:
 
 https://docs.ansible.com/playbooks_best_practices.html#content-organization
