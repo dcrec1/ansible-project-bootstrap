@@ -18,6 +18,7 @@ https://docs.ansible.com/playbooks_best_practices.html#content-organization
 * dev (installs common packages like autoconf and build essentials)
 * git
 * imagemagick
+* jenkins
 * jre
 * mysql-client
 * mysql-server

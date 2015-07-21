@@ -6,13 +6,20 @@ gzip_types text/plain text/html application/xml text/css text/comma-separated-va
 
 upstream app_server {
   server unix:/tmp/{{ app_name }}.sock fail_timeout=0;
+  {% if app_port is defined %}
+  server 127.0.0.1:{{ app_port }} fail_timeout=0;
+  {% endif %}
 }
 
 server {
   listen 80 default_server;
   keepalive_timeout 5;
+  {% if app_path is defined %}
   root {{ app_path }}/public;
   try_files $uri $uri.html $uri/index.html @app;
+  {% else %}
+  try_files $uri @app;
+  {% endif %}
   {% if max_upload_size is defined %}
   client_max_body_size {{ max_upload_size }};
   {% endif %}
