@@ -7,6 +7,7 @@
 
 - name: adds nginx conf
   template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/{{app_name}} force=true
+  notify: restart nginx
 
 - name: enable nginx stats
   template: src=nginx-stats.conf.j2 dest=/etc/nginx/sites-enabled/nginx-stats.conf 
