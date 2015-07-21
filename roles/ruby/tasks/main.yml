@@ -21,3 +21,9 @@
 
 - name: installs ruby
   command: make install chdir=/var/local/ruby-{{ruby_version}} creates=/usr/local/bin/ruby
+
+- name: installs gems
+  command: gem install {{item}} creates=/usr/local/bin/{{item}}
+  with_items:
+    - rake
+    - bundler
