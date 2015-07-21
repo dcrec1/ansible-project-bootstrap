@@ -5,6 +5,7 @@
     - libreadline-dev
     - libssl-dev
     - libyaml-dev
+    - libxml2-dev
     - zlib1g-dev
 
 - name: downloads ruby source code
