@@ -1,3 +1,6 @@
 ---
 - name: installs imagemagick
   apt: pkg=imagemagick
+
+- name: install imagemagick lib
+  apt: pkg=libmagickwand-dev
