@@ -12,6 +12,14 @@ The content of this project was created following the Ansible best practices:
 
 https://docs.ansible.com/playbooks_best_practices.html#content-organization
 
+# Recommended usage
+
+1. Clone this project to a private repository and use it to version your organization infraestructure. You can name the repository something like `infra` or `provisioning`.
+
+2. For each application, create a playbook and an inventory (use the demo files as examples).
+ 
+3. Use the existent roles or create new ones, remove tasks that you don't need and add tasks you need, know what the roles are doing and keep things simple.
+
 # Included roles
 
 * deploy (creates a deploy specific user and copies ssh keys)
