@@ -5,7 +5,11 @@
 - name: removes the default app
   command: rm -f /etc/nginx/sites-enabled/default
 
-- name: adds nginx conf
+- name: adds http conf
+  template: src=http.conf.j2 dest=/etc/nginx/conf.d/http.conf force=true
+  notify: restart nginx
+
+- name: adds app conf
   template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/{{app_name}} force=true
   notify: restart nginx
 

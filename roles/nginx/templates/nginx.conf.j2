@@ -1,9 +1,3 @@
-log_format main '$http_x_forwarded_for - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$host" "$http_user_agent"';
-
-gzip_vary on;
-gzip_proxied any;
-gzip_types text/plain text/html application/xml text/css text/comma-separated-values text/javascript application/x-javascript application/atom+xml application/json;
-
 upstream {{ app_name }} {
   server unix:/tmp/{{ app_name }}.sock fail_timeout=0;
   {% if app_port is defined %}
