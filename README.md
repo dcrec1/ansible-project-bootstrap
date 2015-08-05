@@ -27,6 +27,7 @@ https://docs.ansible.com/playbooks_best_practices.html#content-organization
 * git
 * grafana
 * imagemagick
+* influxdb
 * jenkins
 * jre
 * mysql-client
