@@ -12,7 +12,12 @@ upstream {{ app_name }} {
 }
 
 server {
+  {% if host is defined %}
+  listen 80;
+  server_name {{ host }};
+  {% else %}
   listen 80 default_server;
+  {% endif %}
   keepalive_timeout 5;
   {% if app_path is defined %}
   root {{ app_path }}/public;
