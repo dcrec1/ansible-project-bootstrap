@@ -25,6 +25,7 @@ https://docs.ansible.com/playbooks_best_practices.html#content-organization
 * deploy (creates a deploy specific user and copies ssh keys)
 * dev (installs common packages like autoconf and build essentials)
 * git
+* grafana
 * imagemagick
 * jenkins
 * jre

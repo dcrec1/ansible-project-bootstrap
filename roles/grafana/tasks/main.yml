@@ -1,0 +1,12 @@
+- name: installs dependencies
+  apt: pkg={{item}}
+  with_items:
+    - adduser
+    - libfontconfig
+
+- name: downloads package
+  get_url: url=https://grafanarel.s3.amazonaws.com/builds/grafana_2.0.2_amd64.deb dest=/var/local/grafana_2.0.2_amd64.deb
+
+- name: installs package
+  command: dpkg -i /var/local/grafana_2.0.2_amd64.deb creates=/etc/init.d/grafana
+  notify: restart grafana
