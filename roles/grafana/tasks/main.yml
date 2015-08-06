@@ -11,6 +11,6 @@
   command: dpkg -i /var/local/grafana_2.0.2_amd64.deb creates=/etc/init.d/grafana
   notify: restart grafana
 
-- name: adds custom conf
-  template: src=custom.ini.j2 dest=/etc/grafana/custom.ini force=true
+- name: adds confif
+  template: src=grafana.ini.j2 dest=/etc/grafana/grafana.ini force=true
   notify: restart grafana
