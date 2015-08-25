@@ -18,7 +18,7 @@
 
 - name: setups database
   sudo_user: "{{ user }}"
-  command: bundle exec rake db:setup RAILS_ENV={{rails_env}} chdir={{app_path}}
+  command: bundle exec rake db:migrate RAILS_ENV={{rails_env}} chdir={{app_path}}
 
 - name: compile assets
   sudo_user: "{{ user }}"
