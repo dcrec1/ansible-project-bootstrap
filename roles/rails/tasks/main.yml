@@ -17,7 +17,7 @@
   register: bundler
 
 - name: setups database
-  sudo_user: "{{ user }}"
+  sudo_user: "{{ user }} -i"
   command: bundle exec rake db:migrate RAILS_ENV={{rails_env}} chdir={{app_path}}
 
 - name: compile assets
