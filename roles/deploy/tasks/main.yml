@@ -4,6 +4,11 @@
 - name: sets home owner
   file: owner={{user}} path=/home/{{user}} recurse=yes state=directory
 
+- name: add environment variables to bash profile
+  lineinfile: dest=/home/{{ user }}/.bash_profile create=true regexp={{ item.key }} line='export {{ item.key }}={{ item.value }}'
+  with_dict: environment_variables
+  when: environment_variables is defined
+
 - name: creates apps directory
   file: path=/var/local/apps/ owner={{user}} group={{user}} state=directory
 
