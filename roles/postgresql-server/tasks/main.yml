@@ -2,6 +2,9 @@
 - name: installs psql
   apt: pkg=postgresql
 
+- name: installs extensions
+  apt: pkg=postgresql-contrib
+
 - name: install psycopg2
   apt: pkg=python-psycopg2
 
