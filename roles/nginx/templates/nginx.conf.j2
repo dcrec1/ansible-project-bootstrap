@@ -5,6 +5,14 @@ upstream {{ app_name }} {
   {% endif %}
 }
 
+{% if host is defined %}
+server {
+  listen 80 default_server;
+  server_name _;
+  return 444;
+}
+{% endif %}
+
 server {
   {% if host is defined %}
   listen 80;
