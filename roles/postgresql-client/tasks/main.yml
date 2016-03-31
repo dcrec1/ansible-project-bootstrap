@@ -1,3 +1,6 @@
 ---
 - name: installs postgresql lib
   apt: pkg=libpq-dev
+
+- name: installs posgresql client
+  apt: pkg=postgresql-client
