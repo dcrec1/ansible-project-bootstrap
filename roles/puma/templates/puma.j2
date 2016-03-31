@@ -41,7 +41,7 @@ do_start() {
     user=`echo $i | cut -d , -f 2`
     config_file=`echo $i | cut -d , -f 3`
     if [ "$config_file" = "" ]; then
-      config_file="$dir/config/puma.rb"
+      config_file="$dir/config/puma.provisioned.rb"
     fi
     log_file=`echo $i | cut -d , -f 4`
     if [ "$log_file" = "" ]; then
@@ -134,7 +134,7 @@ do_restart_one() {
     user=`echo $i | cut -d , -f 2`
     config_file=`echo $i | cut -d , -f 3`
     if [ "$config_file" = "" ]; then
-      config_file="$dir/config/puma.rb"
+      config_file="$dir/config/puma.provisioned.rb"
     fi
     log_file=`echo $i | cut -d , -f 4`
     if [ "$log_file" = "" ]; then
@@ -237,7 +237,7 @@ case "$1" in
       user=`echo $i | cut -d , -f 2`
       config_file=`echo $i | cut -d , -f 3`
       if [ "$config_file" = "" ]; then
-        config_file="$dir/config/puma.rb"
+        config_file="$dir/config/puma.provisioned.rb"
       fi
       log_file=`echo $i | cut -d , -f 4`
       if [ "$log_file" = "" ]; then

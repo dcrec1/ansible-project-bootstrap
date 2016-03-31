@@ -11,7 +11,7 @@
   template: src=puma.conf.j2 dest=/etc/puma.conf mode=644
 
 - name: adds puma app conf
-  template: src=puma.rb.j2 dest={{ app_path }}/config/puma.rb mode=644
+  template: src=puma.rb.j2 dest={{ app_path }}/config/puma.provisioned.rb mode=644
   notify: restart puma
 
 - name: creates puma pid folder
