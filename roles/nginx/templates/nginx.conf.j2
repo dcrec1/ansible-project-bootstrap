@@ -13,6 +13,14 @@ server {
 }
 {% endif %}
 
+{% if host is defined and host[0:4] == "www." %}
+server {
+  listen 80;
+  server_name {{ host | regex_replace('www.', '') }};
+  return 301 $scheme://{{ host }}$request_uri;
+}
+{% endif %}
+
 server {
   {% if host is defined %}
   listen 80;
