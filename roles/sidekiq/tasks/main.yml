@@ -6,3 +6,6 @@
 
 - name: adds sidekiq to upstart
   command: update-rc.d -f sidekiq defaults
+
+- name: starts sidekiq
+  service: name=sidekiq state=started
