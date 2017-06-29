@@ -6,7 +6,7 @@
   command: tar -xvzf /var/local/node-v6.10.3.tar.gz chdir=/var/local creates=/var/local/node-v6.10.3
 
 - name: configures node
-  command: ./configure chdir=/var/local/node-v6.10.3 creates=/var/local/node-v6.10.3/Makefile
+  command: ./configure chdir=/var/local/node-v6.10.3 creates=/var/local/node-v6.10.3/config.gypi
 
 - name: compiles node
   command: make chdir=/var/local/node-v6.10.3 creates=/var/local/node-v6.10.3/node
