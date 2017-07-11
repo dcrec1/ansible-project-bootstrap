@@ -1,0 +1,22 @@
+---
+- name: adds configuration file
+  template: src=newrelic-infra.yml.j2 dest=/etc/newrelic-infra.yml force=true
+  notify: restart newrelic-infra
+
+- name: enable new relic gpg key
+  apt_key:
+    url: https://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg
+    state: present
+
+- name: setup agent repo reference
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt xenial main"
+    state: present
+
+- name: install agent
+  apt:
+    name: "newrelic-infra"
+    update_cache: yes
+
+- name: setup agent service
+  service: name=newrelic-infra state=started enabled=yes
