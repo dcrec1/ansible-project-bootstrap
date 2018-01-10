@@ -8,8 +8,14 @@ upstream {{ app_name }} {
 {% if host is defined %}
 server {
   listen 80 default_server;
-  server_name _;
-  return 444;
+
+  location /health {
+    proxy_pass http://{{ app_name }};
+  }
+
+  location / {
+    return 444;
+  }
 }
 {% endif %}
 
