@@ -1,5 +1,5 @@
 - name: update project source
-  git: repo={{repository}} dest={{app_path}} accept_hostkey=yes version={{branch}}
+  git: repo={{repository}} dest={{app_path}} accept_hostkey=yes version={{branch | default('master')}}
 
 - name: install gems with bundler
   command: bundle install --deployment chdir={{ app_path }}
