@@ -6,8 +6,7 @@
   template: src=logrotate.j2 dest=/etc/logrotate.d/app mode=644
 
 - name: clones repository
-  git: repo={{repository}} dest={{app_path}} update=no accept_hostkey=yes version={{branch}}
-
+  git: repo={{repository}} dest={{app_path}} update=no accept_hostkey=yes version={{branch | default('master')}}
 - name: changes app path owner
   file: path={{app_path}} recurse=yes owner={{user}}
 
