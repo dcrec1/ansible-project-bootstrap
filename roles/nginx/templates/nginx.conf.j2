@@ -54,6 +54,10 @@ server {
     try_files $uri @app;
   }
 
+  location ~* \.(eot|ttf|woff|woff2)$ {
+    add_header Access-Control-Allow-Origin *;
+  }
+
   location @app {
     proxy_set_header Host $http_host;
     proxy_pass http://{{ app_name }};
