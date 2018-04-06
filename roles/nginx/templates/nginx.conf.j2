@@ -21,9 +21,12 @@ server {
 
 {% if host is defined and host[0:4] == "www." %}
 server {
+  if ($http_x_forwarded_proto = '') {
+    set $http_x_forwarded_proto $scheme;
+  }
   listen 80;
   server_name {{ host | regex_replace('www.', '') }};
-  return 301 $scheme://{{ host }}$request_uri;
+  return 301 $http_x_forwarded_proto://{{ host }}$request_uri;
 }
 {% endif %}
 
