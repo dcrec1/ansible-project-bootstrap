@@ -1,0 +1,27 @@
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+
+# Uncomment for socket activation (see below)
+# Requires=puma.socket
+
+[Service]
+# Foreground process (do not use --daemon in ExecStart or config.rb)
+Type=simple
+
+# Preferably configure a non-privileged user
+User={{ user }}
+
+# The path to the puma application root
+WorkingDirectory={{ app_path }}
+
+# Helpful for debugging socket activation, etc.
+# Environment=PUMA_DEBUG=1
+
+# The command to start Puma.
+ExecStart=/bin/bash -c 'source ~/.bash_profile && bundle exec puma -C config/puma.provisioned.rb'
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
