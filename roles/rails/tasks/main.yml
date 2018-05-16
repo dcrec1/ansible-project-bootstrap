@@ -11,14 +11,14 @@
   file: path={{app_path}} recurse=yes owner={{user}}
 
 - name: bundle install
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   command: bundle install --deployment chdir={{ app_path }}
   register: bundler
 
 - name: setups database
-  sudo_user: "{{ user }} -i"
+  become_user: "{{ user }} -i"
   command: bundle exec rake db:migrate RAILS_ENV={{rails_env}} chdir={{app_path}}
 
 - name: compile assets
-  sudo_user: "{{ user }}"
+  become_user: "{{ user }}"
   command: bundle exec rake assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
