@@ -22,10 +22,10 @@
   command: make chdir=/var/local/ruby-{{ruby_version}} creates=/var/local/ruby-{{ruby_version}}/ruby
 
 - name: installs ruby
-  command: make install chdir=/var/local/ruby-{{ruby_version}} creates=/usr/local/bin/ruby
+  command: make install chdir=/var/local/ruby-{{ruby_version}}
 
 - name: installs gems
-  command: gem install {{item}} creates=/usr/local/bin/{{item}}
+  command: gem install {{item}}
   with_items:
     - rake
     - bundler
