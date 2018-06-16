@@ -1,11 +1,14 @@
 - name: installs sidekiq
   command: gem install sidekiq creates=/usr/local/bin/sidekiq
 
-- name: adds sidekiq init script
-  template: src=sidekiq.j2 dest=/etc/init.d/sidekiq mode=755
+- name: adds sidekiq systemd script
+  template: src=sidekiq.service.j2 dest=/etc/systemd/system/sidekiq.service mode=755
 
-- name: adds sidekiq to upstart
-  command: update-rc.d -f sidekiq defaults
+- name: reload systemd
+  command: systemctl daemon-reload
 
-- name: starts sidekiq
-  service: name=sidekiq state=started
+- name: enable sidekiq service
+  command: systemctl enable sidekiq.service
+
+- name: start sidekiq service
+  command: systemctl start sidekiq.service

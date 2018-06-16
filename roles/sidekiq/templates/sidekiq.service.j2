@@ -1,0 +1,16 @@
+[Unit]
+Description=Sidekiq
+After=network.target
+
+[Service]
+Type=simple
+
+# Preferably configure a non-privileged user
+User={{ user }}
+WorkingDirectory={{ app_path }}
+Environment=MALLOC_ARENA_MAX=2
+ExecStart=/bin/bash -c 'source ~/.bash_profile && bundle exec sidekiq -e {{ rails_env }} -L log/sidekiq.log'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
