@@ -1,15 +1,15 @@
 ---
 - name: downloads node source code
-  get_url: url=https://nodejs.org/dist/v6.10.3/node-v6.10.3.tar.gz dest=/var/local/node-v6.10.3.tar.gz
+  get_url: url=https://nodejs.org/dist/v8.12.0/node-v8.12.0.tar.gz dest=/var/local/node-v8.12.0.tar.gz
 
 - name: extracts node source code
-  command: tar -xvzf /var/local/node-v6.10.3.tar.gz chdir=/var/local creates=/var/local/node-v6.10.3
+  command: tar -xvzf /var/local/node-v8.12.0.tar.gz chdir=/var/local creates=/var/local/node-v8.12.0
 
 - name: configures node
-  command: ./configure chdir=/var/local/node-v6.10.3 creates=/var/local/node-v6.10.3/config.gypi
+  command: ./configure chdir=/var/local/node-v8.12.0 creates=/var/local/node-v8.12.0/config.gypi
 
 - name: compiles node
-  command: make chdir=/var/local/node-v6.10.3 creates=/var/local/node-v6.10.3/node
+  command: make chdir=/var/local/node-v8.12.0 creates=/var/local/node-v8.12.0/node
 
 - name: installs node
-  command: make install chdir=/var/local/node-v6.10.3 creates=/usr/local/bin/node
+  command: make install chdir=/var/local/node-v8.12.0 creates=/usr/local/bin/node
