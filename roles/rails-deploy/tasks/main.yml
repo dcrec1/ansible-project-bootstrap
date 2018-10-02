@@ -7,6 +7,7 @@
 
 - name: migrate the database
   shell: . ~/.bash_profile && bundle exec rake db:create db:migrate RAILS_ENV={{ rails_env }} chdir={{ app_path }}
+  run_once: true
 
 - name: compile assets
   command: bundle exec rake assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
