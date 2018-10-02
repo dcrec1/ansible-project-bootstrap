@@ -1,11 +1,11 @@
 ---
 - hosts: database
-  sudo: true
+  become: true
   roles:
     - postgresql-server
 
 - hosts: web
-  sudo: true
+  become: true
   vars:
     ruby_version: 2.2.2
   roles:
