@@ -48,7 +48,7 @@ server {
   client_max_body_size {{ max_upload_size }};
   {% endif %}
  
-  location /assets {
+  location ~ ^/(assets|packs)/ {
     gzip_static on;
     expires max;
     add_header Cache-Control public;
