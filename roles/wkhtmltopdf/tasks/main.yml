@@ -1,0 +1,2 @@
+- name: updates apt
+  apt: pkg=wkhtmltopdf
