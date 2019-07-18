@@ -1,6 +1,16 @@
 ---
+- name: enable pg asc key
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+- name: setup pg repo reference
+  apt_repository:
+    repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main 11"
+    state: present
+
 - name: installs postgresql lib
-  apt: pkg=libpq-dev
+  apt: pkg=libpq-dev update_cache=yes
 
 - name: installs posgresql client
-  apt: pkg=postgresql-client
+  apt: pkg=postgresql-client update_cache=yes
