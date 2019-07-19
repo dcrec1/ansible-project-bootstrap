@@ -1,13 +1,13 @@
 ---
 - name: installs ruby dependencies
-  apt: pkg={{item}}
-  with_items:
-    - libreadline-dev
-    - libssl-dev
-    - libyaml-dev
-    - libxml2-dev
-    - libxslt1-dev
-    - zlib1g-dev
+  apt:
+    name:
+      - libreadline-dev
+      - libssl-dev
+      - libyaml-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - zlib1g-dev
 
 - name: downloads ruby source code
   get_url: url=http://cache.ruby-lang.org/pub/ruby/{{ruby_version[0:3]}}/ruby-{{ruby_version}}.tar.gz dest=/var/local/ruby-{{ruby_version}}.tar.gz

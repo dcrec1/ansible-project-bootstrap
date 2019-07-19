@@ -1,8 +1,6 @@
-- name: updates apt
-  apt: update_cache=yes
-
 - name: install compilation packages
-  apt: pkg={{item}}
-  with_items:
-    - autoconf
-    - build-essential
+  apt:
+    name:
+      - autoconf
+      - build-essential
+    update_cache: yes
