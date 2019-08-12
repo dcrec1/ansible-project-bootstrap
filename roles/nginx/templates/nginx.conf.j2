@@ -54,11 +54,20 @@ server {
     add_header Cache-Control public;
     add_header ETag "";
     add_header Last-Modified "";
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Request-Method *;
     try_files $uri @app;
   }
 
   location @app {
     proxy_set_header Host $http_host;
     proxy_pass http://{{ app_name }};
+  }
+
+  location /cable {
+    proxy_pass http://{{ app_name }};
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
   }
 }
