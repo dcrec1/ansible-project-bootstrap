@@ -7,7 +7,7 @@
 - hosts: web
   become: true
   vars:
-    ruby_version: 2.2.2
+    ruby_version: 2.6.3
   roles:
     - git
     - postgresql-client
