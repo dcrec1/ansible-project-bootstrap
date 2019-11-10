@@ -1,4 +1,9 @@
 ---
+- name: installs dependencies
+  apt: pkg={{item}}
+  with_items:
+    - python
+
 - name: downloads node source code
   get_url: url=https://nodejs.org/dist/v8.12.0/node-v8.12.0.tar.gz dest=/var/local/node-v8.12.0.tar.gz
 
