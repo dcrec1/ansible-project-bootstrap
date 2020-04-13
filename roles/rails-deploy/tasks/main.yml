@@ -10,7 +10,7 @@
   run_once: true
 
 - name: compile assets
-  shell: ~/.bash_profile && bundle exec rails assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
+  shell: . ~/.bash_profile && bundle exec rails assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
 
 - name: check for puma pid
   stat: path={{ app_path }}/tmp/pids/puma.pid
