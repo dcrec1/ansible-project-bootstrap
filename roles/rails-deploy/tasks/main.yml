@@ -10,9 +10,7 @@
   run_once: true
 
 - name: compile assets
-  command: bundle exec rails assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
-  environment:
-    DISABLE_SPRING: 1
+  shell: ~/.bash_profile && bundle exec rails assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
 
 - name: check for puma pid
   stat: path={{ app_path }}/tmp/pids/puma.pid
@@ -26,16 +24,3 @@
 - name: restart puma
   command: kill -USR2 {{ puma_pid.stdout }}
   when: puma_pid_file.stat.exists
-
-- name: check for unicorn pid
-  stat: path={{ app_path }}/tmp/pids/unicorn.pid
-  register: unicorn_pid_file
-
-- name: registers unicorn pid
-  command: cat tmp/pids/unicorn.pid chdir={{ app_path }}
-  register: unicorn_pid
-  when: unicorn_pid_file.stat.exists
-
-- name: restart unicorn
-  command: kill -USR2 {{ unicorn_pid.stdout }}
-  when: unicorn_pid_file.stat.exists
