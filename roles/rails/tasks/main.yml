@@ -18,8 +18,8 @@
 
 - name: setups database
   become_user: "{{ user }} -i"
-  command: bundle exec rake db:migrate RAILS_ENV={{rails_env}} chdir={{app_path}}
+  command: bundle exec rails db:migrate RAILS_ENV={{rails_env}} chdir={{app_path}}
 
 - name: compile assets
-  become_user: "{{ user }}"
-  command: bundle exec rake assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
+  become_user: "{{ user }} -i"
+  command: bundle exec rails assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}

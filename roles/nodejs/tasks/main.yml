@@ -1,7 +1,7 @@
 ---
 - name: installs dependencies
-  apt: pkg={{item}}
-  with_items:
+  apt:
+    pkg:
     - python
 
 - name: downloads node source code
