@@ -5,16 +5,16 @@
     - python
 
 - name: downloads node source code
-  get_url: url=https://nodejs.org/dist/v12.14.0/node-v12.14.0.tar.gz dest=/var/local/node-v12.14.0.tar.gz
+  get_url: url=https://nodejs.org/dist/v{{node_version}}/node-v{{node_version}}.tar.gz dest=/var/local/node-v{{node_version}}.tar.gz
 
 - name: extracts node source code
-  command: tar -xvzf /var/local/node-v12.14.0.tar.gz chdir=/var/local creates=/var/local/node-v12.14.0
+  command: tar -xvzf /var/local/node-v{{node_version}}.tar.gz chdir=/var/local creates=/var/local/node-v{{node_version}}
 
 - name: configures node
-  command: ./configure chdir=/var/local/node-v12.14.0 creates=/var/local/node-v12.14.0/config.gypi
+  command: ./configure chdir=/var/local/node-v{{node_version}} creates=/var/local/node-v{{node_version}}/config.gypi
 
 - name: compiles node
-  command: make chdir=/var/local/node-v12.14.0 creates=/var/local/node-v12.14.0/node
+  command: make chdir=/var/local/node-v{{node_version}} creates=/var/local/node-v{{node_version}}/node
 
 - name: installs node
-  command: make install chdir=/var/local/node-v12.14.0
+  command: make install chdir=/var/local/node-v{{node_version}}

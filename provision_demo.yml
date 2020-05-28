@@ -7,6 +7,7 @@
 - hosts: web
   become: true
   vars:
+    node_version: 12.16.3
     ruby_version: 2.6.3
   roles:
     - git
