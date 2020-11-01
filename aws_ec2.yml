@@ -1,0 +1,7 @@
+plugin: amazon.aws.aws_ec2
+aws_profile:
+regions:
+  -
+keyed_groups:
+  - key: 'security_groups|json_query("[].group_name")'
+    prefix: 'security_group'
