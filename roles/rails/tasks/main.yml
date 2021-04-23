@@ -11,15 +11,20 @@
 - name: changes app path owner
   file: path={{app_path}} recurse=yes owner={{user}}
 
+- name: configure bundler
+  become_user: "{{ user }}"
+  command: bundle config set deployment 'true' chdir={{ app_path }}
+
 - name: bundle install
   become_user: "{{ user }}"
-  command: bundle install --deployment chdir={{ app_path }}
+  command: bundle install chdir={{ app_path }}
   register: bundler
 
 - name: setups database
-  become_user: "{{ user }} -i"
-  command: bundle exec rails db:migrate RAILS_ENV={{rails_env}} chdir={{app_path}}
+  become_user: "{{ user }}"
+  shell: . ~/.bash_profile && bundle exec rails db:migrate RAILS_ENV={{ rails_env }} chdir={{ app_path }}
+  run_once: true
 
 - name: compile assets
-  become_user: "{{ user }} -i"
-  command: bundle exec rails assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
+  become_user: "{{ user }}"
+  shell: . ~/.bash_profile && bundle exec rails assets:precompile RAILS_ENV={{ rails_env }} chdir={{ app_path }}
