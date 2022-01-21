@@ -1,73 +1,25 @@
-upstream {{ app_name }} {
-  server unix:/tmp/{{ app_name }}.sock fail_timeout=0;
-  {% if app_port is defined %}
-  server 127.0.0.1:{{ app_port }} fail_timeout=0;
-  {% endif %}
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+	worker_connections 1536;
 }
 
-{% if host is defined %}
-server {
-  listen 80 default_server;
-
-  location /health {
-    proxy_pass http://{{ app_name }};
-  }
-
-  location / {
-    return 444;
-  }
-}
-{% endif %}
-
-{% if host is defined and host[0:4] == "www." %}
-server {
-  if ($http_x_forwarded_proto = '') {
-    set $http_x_forwarded_proto $scheme;
-  }
-  listen 80;
-  server_name {{ host | regex_replace('www.', '') }};
-  return 301 $http_x_forwarded_proto://{{ host }}$request_uri;
-}
-{% endif %}
-
-server {
-  {% if host is defined %}
-  listen 80;
-  server_name {{ host }};
-  {% else %}
-  listen 80 default_server;
-  {% endif %}
-  keepalive_timeout 5;
-  {% if app_path is defined %}
-  root {{ app_path }}/public;
-  try_files $uri $uri.html $uri/index.html @app;
-  {% else %}
-  try_files $uri @app;
-  {% endif %}
-  {% if max_upload_size is defined %}
-  client_max_body_size {{ max_upload_size }};
-  {% endif %}
- 
-  location ~ ^/(assets|packs)/ {
-    gzip_static on;
-    expires max;
-    add_header Cache-Control public;
-    add_header ETag "";
-    add_header Last-Modified "";
-    add_header Access-Control-Allow-Origin *;
-    add_header Access-Control-Request-Method *;
-    try_files $uri @app;
-  }
-
-  location @app {
-    proxy_set_header Host $http_host;
-    proxy_pass http://{{ app_name }};
-  }
-
-  location /cable {
-    proxy_pass http://{{ app_name }};
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-  }
+http {
+	sendfile on;
+	tcp_nopush on;
+	tcp_nodelay on;
+	keepalive_timeout 65;
+	types_hash_max_size 2048;
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+	ssl_prefer_server_ciphers on;
+	access_log /var/log/nginx/access.log;
+	error_log /var/log/nginx/error.log;
+	gzip on;
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
 }
